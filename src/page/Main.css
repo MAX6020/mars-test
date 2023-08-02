@@ -68,7 +68,11 @@ input[type=file]{
 .dropzone.active{
     border-color: #FFFFFF;
 }
+.name{
+    text-align: center;
+}
 .file{
+    margin-top: 10px;
     text-decoration:none;
     color: #FFFFFF;
     display:block;
@@ -77,6 +81,7 @@ input[type=file]{
     padding: 10px;
     position:relative;
     overflow: hidden;
+    width: 300px;
   }
   .file .progress {
     background-color: hsla(358, 76%, 36%, 0.479);
@@ -88,6 +93,34 @@ input[type=file]{
     padding-top: 10px;
     text-align: center;
   }
-  .file .progress.done{
+  .file .progress .done{
     top: 100px;
+    background-color: hsla(358, 76%, 36%, 0.479);
+  }
+  .prom__upload{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .upload__text{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #fff;
+    font-size: 36px;
+    display: none;
+  }
+  .upload__text.up{
+    display: block;
+  }
+  .progress__upload{
+    display: flex;
+  }
+  .byte{
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #fff;
+    font-size: 24px;
+    margin-left: 20px;
+  }
+  .byte__flex{
+    display: flex;
+    align-items: center;
   }

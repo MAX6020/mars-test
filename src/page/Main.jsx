@@ -61,6 +61,15 @@ const Main = () => {
   }
 
   useEffect(() => {
+    if (lastUploadFileIndex === null) {
+      return;
+    }
+    const isLastFile = lastUploadFileIndex === files.length - 1;
+    const nextFileIndex = isLastFile ? null : currentFileIndex + 1;
+    setCurrentFileIndex(nextFileIndex);
+  }, [lastUploadFileIndex]);
+
+  useEffect(() => {
     if (files.length > 0) {
       if (currentFileIndex === null) {
         setCurrentFileIndex(
@@ -113,18 +122,23 @@ const Main = () => {
           <div className="files">
             {files.map((file, fileIndex) => {
               let progress = 0;
+              let uploadedFileSize = 0;
               if (file.finalFilename) {
                 progress = 100;
+                uploadedFileSize = file.size
               } else {
                 const uploading = fileIndex === currentFileIndex;
                 const chunks = Math.ceil(file.size / chunkSize);
+                
                 if (uploading) {
+                  uploadedFileSize = Math.ceil(file.size / chunks) * currentChunkIndex;
                   progress = Math.round((currentChunkIndex / chunks) * 100);
                 } else {
                   progress = 0;
                 }
               }
               return (
+                <div className="progress__upload">
                 <a key={fileIndex}
                   className="file"
                   target="_blank"
@@ -135,11 +149,14 @@ const Main = () => {
                     className={"progress " + (progress === 100 ? "done" : "")}
                     style={{ width: progress + "%" }}
                   >
-                  </div>
+                  </div><div className="prom__upload"><p className={"upload__text " + (progress === 100 ? "up" : "")}>Done</p></div>
                 </a>
+                <div className="byte__flex"><div key={fileIndex} className="byte">{uploadedFileSize}/{file.size}</div></div>
+                </div>
               );
             })}
           </div>
+          
         </div>
       </main>
     </>

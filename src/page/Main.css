@@ -5,10 +5,10 @@
     text-decoration: none;
 }
 body{
-    background-color: #0B090A;
+    background-color: #eeee;
 }
 .header{
-    background-color: #161A1D;
+    background-color: #dfdfdf;
     height: 75px;
 }
 .container{
@@ -20,12 +20,12 @@ body{
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 34px;
-    color: #A4161A;
+    color: #0783f0;
 }
 .uploader{
     padding: 20px 20px 20px 20px;
     display: flex;
-    background-color: #161A1D;
+    background-color: #dfdfdf;
     margin-top: 20px;
     border-radius: 5px;
     justify-content: center;
@@ -35,12 +35,11 @@ body{
     color: #F5F3F4;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 24px;
-    margin-right: 20px;
     height: 70px;
     width: 240px;
     border-radius: 20px;
     border: 1px solid #FFFFFF;
-    background-color: #A4161A;
+    color: #0783f0;
     transition: 0.4s;
     display: flex;
     justify-content: center;
@@ -48,7 +47,8 @@ body{
     cursor: pointer;
 }
 .btn:hover{
-    background-color: #E5383B;
+    background-color: #026ecc;
+    color: white;
     transition: 0.4s;
 }
 input[type=file]{
@@ -56,12 +56,13 @@ input[type=file]{
 }
 .dropzone{
     font-family: 'Roboto Condensed', sans-serif;
-    border: 2px dashed #660708;
-    color: #A4161A;
+    border: 4px dashed #0783f0;
+    color: #0783f0;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 36px;
+    margin-left: 24px;
     width: 1100px;
     height: 200px;
 }
@@ -72,6 +73,7 @@ input[type=file]{
     text-align: center;
 }
 .file{
+    z-index: 1;
     margin-top: 10px;
     text-decoration:none;
     color: #FFFFFF;
@@ -84,7 +86,8 @@ input[type=file]{
     width: 300px;
   }
   .file .progress {
-    background-color: hsla(358, 76%, 36%, 0.479);
+    z-index: -1;
+    background-color: hsla(209, 100%, 40%, 0.479);
     transition: all;
     transition-duration: 0.6s;
     position: absolute;
@@ -95,7 +98,7 @@ input[type=file]{
   }
   .file .progress .done{
     top: 100px;
-    background-color: hsla(358, 76%, 36%, 0.479);
+    background-color: hsla(209, 100%, 40%, 0.479);
   }
   .prom__upload{
     display: flex;
@@ -113,10 +116,12 @@ input[type=file]{
   }
   .progress__upload{
     display: flex;
+    gap: 20px;
+    align-items: center;
   }
   .byte{
     font-family: 'Roboto Condensed', sans-serif;
-    color: #fff;
+    color: #0783f0;
     font-size: 24px;
     margin-left: 20px;
   }

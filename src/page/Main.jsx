@@ -1,5 +1,6 @@
 import "./Main.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import * as XLSX from 'xlsx'
 import axios from "axios";
 
 let chunkSize = 1 * 1024;
@@ -10,6 +11,7 @@ const Main = () => {
   const [currentFileIndex, setCurrentFileIndex] = useState(null);
   const [lastUploadFileIndex, setLastUploadedFileIndex] = useState(null);
   const [currentChunkIndex, setCurrentChunkIndex] = useState(null);
+  const fileRef = useRef()
 
   function handleDrop(e) {
     e.preventDefault();
@@ -60,6 +62,28 @@ const Main = () => {
     });
   }
 
+  const handleClick = () =>{
+    fileRef.current.click()
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    var files = e.target.files, f = files[0];
+    var reader1 = new FileReader();
+    reader1.onload = function (e) {
+        var data = e.target.result;
+        let readedData = XLSX.read(data, {type: 'binary'});
+        const wsname = readedData.SheetNames[0];
+        const ws = readedData.Sheets[wsname];
+
+        /* Convert array to json*/
+        const dataParse = XLSX.utils.sheet_to_json(ws, {header:1});
+        console.log(dataParse)
+    };
+    reader1.readAsBinaryString(f)
+}
+
   useEffect(() => {
     if (lastUploadFileIndex === null) {
       return;
@@ -94,14 +118,14 @@ const Main = () => {
     <>
       <header className="header">
         <div className="container">
-          <h1 className="head">Uploader</h1>
+          <h1 className="head">Загрузчик</h1>
         </div>
       </header>
       <main className="container">
         <div className="uploader">
           <input onChange={handleUpload} type="file" id="file" />
           <label htmlFor="file" className="btn" id="btn__open">
-            Open
+            Выбрать файл
           </label>
           <div
             onDragOver={(e) => {
@@ -115,10 +139,11 @@ const Main = () => {
             onDrop={(e) => handleDrop(e)}
             className={"dropzone " + (dropzoneActive ? "active" : "")}
           >
-            Drop files here
+            Перетащите файл сюда
           </div>
         </div>
         <div className="uploader">
+          <h1 className="head">Загруженные файлы</h1>
           <div className="files">
             {files.map((file, fileIndex) => {
               let progress = 0;
@@ -156,7 +181,23 @@ const Main = () => {
               );
             })}
           </div>
-          
+        </div>
+        <div className="uploader">
+          <div className="statistic">
+            <h1 className="head">Статистика</h1>
+            <button 
+            className="btn"
+            onClick={handleClick}
+            >
+              Выгрузить таблицу
+            </button>
+            <input 
+            type="file" 
+            ref={fileRef} 
+            onChange={handleChange} 
+            style={{display:'none'}}
+            />
+          </div>
         </div>
       </main>
     </>
